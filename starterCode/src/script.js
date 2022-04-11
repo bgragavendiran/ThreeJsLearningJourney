@@ -27,9 +27,14 @@ const Sizes={
 //Camera
 const camera = new THREE.PerspectiveCamera(75,Sizes.width/Sizes.height)
 camera.position.z=3
-
+camera.lookAt(cube.position)
 
 Scene.add(camera)
 
 //renderer
-const renderer =new THREE.WebGLRenderer(
+const renderer =new THREE.WebGLRenderer({
+    canvas:canvas
+})
+renderer.setSize(Sizes.width,Sizes.height)
+renderer.render(Scene,camera)
+

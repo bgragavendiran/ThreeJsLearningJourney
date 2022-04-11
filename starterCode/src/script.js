@@ -8,16 +8,31 @@ const Scene= new THREE.Scene()
 
 // Red Cube
 const geometry = new THREE.BoxGeometry(1,1,1)
-const material = new THREE.MeshBasicMaterial({color:'#ff0000'})
+const materialRed = new THREE.MeshBasicMaterial({color:'#ff0000'})
+const materialGreen = new THREE.MeshBasicMaterial({color:'#00ff00'})
 
-const cube = new THREE.Mesh(geometry,material)
-cube.position.x=0.7
-cube.position.y=-0.6
-cube.position.z=0
+const cubeRed = new THREE.Mesh(geometry,materialRed)
+cubeRed.position.set(0,0,0)
+cubeRed.rotation.set(Math.PI/2,Math.PI/4,0)
+cubeRed.scale.set(1,2,1)
+Scene.add(cubeRed)
 
-Scene.add(cube)
+const cubeGreen = new THREE.Mesh(geometry,materialGreen)
+cubeGreen.position.set(0,0,0)
+cubeGreen.rotation.set(Math.PI/2,Math.PI,0)
+cubeGreen.scale.set(1,2,1)
+Scene.add(cubeGreen)
 
-console.log(cube.position.length())
+
+//Grouping
+const Grouping= new THREE.Group()
+Scene.add(Grouping)
+Grouping.add(cubeRed)
+Grouping.add(cubeGreen)
+
+Grouping.scale.x=2
+Grouping.scale.y=2
+Grouping.rotation.z=3.14687
 
 //Sizes
 const Sizes={
@@ -27,7 +42,6 @@ const Sizes={
 //Camera
 const camera = new THREE.PerspectiveCamera(75,Sizes.width/Sizes.height)
 camera.position.z=3
-camera.lookAt(cube.position)
 
 Scene.add(camera)
 
@@ -37,4 +51,7 @@ const renderer =new THREE.WebGLRenderer({
 })
 renderer.setSize(Sizes.width,Sizes.height)
 renderer.render(Scene,camera)
+
+
+
 
